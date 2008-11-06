@@ -7,6 +7,12 @@ _._validation = {
   }],
   email: ["keyup",function(element){
     
+  }],
+  number: ["keyup",function(el){
+    return el.value==parseFloat(el.value)+''
+  }],
+  integer: ["keyup",function(el){
+    return el.value==parseInt(el.value)+''
   }]
 }
 
@@ -15,13 +21,16 @@ _.validate = function(h){
   for(l in _._validation){
     c=_.L(l,h) //get all of class
     v=_._validation[l] //the thingy that does validation
-    for(i=c.length;c--;){ //loop elements
-      _.E(c[i], v[0], function(e){ //attach event (defined by config)
-        e.target._v=e.target._v?[]; //if no validtor, then create
-        if(v[1](e.target)==!1){ //test if fail
+    for(i=c.length;i--;){ //loop elements
+      _.E(c[i], "keyup", function(e){ //attach event (defined by config)
+        console.log("sumptin happenz")
+        e.target._v=e.target._v?e.target._v:[]; //if no validtor, then create
+        if(!v[1](e.target)){ //test if fail
+          console.log("fail",e.target)
           e.target._v.push(l); //phail! add to fail-list
           _.addclass(e.target,"fail");
         }else{
+          console.log("notfail")
           e.target._v=_.arrayremove(e.target._v,l)//passes, get rid of failures for test
           _.removeclass(e.target,"fail");
         }
@@ -29,8 +38,9 @@ _.validate = function(h){
     }
   }
   _.E(h, "submit", function(e){
-    if(_.L("fail",e).length == 0){
+    if(_.L("fail",e.target).length == 0){
       e.preventDefault();
+      alert("phail");
     }
   })
 }

@@ -1,0 +1,15 @@
+<script type="text/javascript" src="http://vxjs.googlecode.com/svn/trunk/lib/vx.all.js"></script>
+<script type="text/javascript" src="vx.util.js"></script>
+<script type="text/javascript" src="vx.validation.js"></script>
+<script type="text/javascript">
+_.R(function(){
+  _.validate(_.G("testform"));
+})
+</script>
+
+<form id="testform">
+  <input type="text" name="poop" class="required">
+  <input type="text" name="poop3" class="number">
+  <input type="text" name="poop2" class="integer">
+  <input type="submit">
+</form>
